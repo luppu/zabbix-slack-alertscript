@@ -81,11 +81,15 @@ Then, create a "Slack" user on the "Users" sub-tab of the "Administration" tab w
 
 ![Zabbix User](https://pictures.ericoc.com/github/zabbix-user.png "Zabbix User")
 
-Finally, an action can then be created on the "Actions" sub-tab of the "Configuration" tab within the Zabbix servers web interface to notify the Zabbix "Slack" user ensuring that the "Subject" is "PROBLEM" for "Default message" and "RECOVERY" should you choose to send a "Recovery message".
+Finally, an action can then be created on the "Actions" sub-tab of the "Configuration" tab within the Zabbix servers web interface to notify the Zabbix "Slack" user ensuring that the "Subject" is "PROBLEM" for "Default message" and "RECOVERY" should you choose to send a "Recovery message". Use the following as subject:
 
-Keeping the messages short is probably a good idea; use something such as the following for the contents of each message:
+	{TRIGGER.STATUS} - {TRIGGER.NAME}
 
-	{TRIGGER.NAME} - {HOSTNAME} ({IPADDRESS})
+Keeping the messages short is probably a good idea; Script will read first 3 line and assign each line to a variable, use the following for the contents of each message:
+
+	{ITEM.NAME1} : {ITEM.VALUE1}
+	{HOSTNAME}
+	{IPADDRESS}
 
 Additionally, you can have multiple different Zabbix users each with "Slack" media types that notify unique Slack users or channels upon different triggered Zabbix actions.
 
@@ -95,11 +99,11 @@ Testing
 -------
 Assuming that you have set a valid Slack web-hook URL within your "slack.sh" file, you can execute the script manually (as opposed to via Zabbix) from Bash on a terminal:
 
-	$ bash slack.sh '@ericoc' PROBLEM 'Oh no! Something is wrong!'
+	$ bash slack.sh '#test-zabbix' "PROBLEM - Disk I/O is overloaded on TESTSRV" "Result\nTESTSRV\n1.1.1.1"
 
 Alerting a specific user name results in the message actually coming from the "slackbot" user using a sort-of "spoofed" user name within the message. A channel alert is sent as you would normally expect from whatever user name you specify in "slack.sh":
 
-![Slack Testing](https://pictures.ericoc.com/github/slack-example.png "Slack Testing")
+![Slack Testing](https://raw.githubusercontent.com/luppu/zabbix-slack-alertscript/master/zabbix-slack.jpg "Slack Testing")
 
 
 More Information
