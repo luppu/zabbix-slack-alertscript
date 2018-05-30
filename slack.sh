@@ -16,18 +16,22 @@ subject="$2"
 # Change message emoji depending on the subject - smile (RECOVERY/OK), frowning (PROBLEM), or ghost (for everything else)
 recoversub='^RECOVER(Y|ED)?$'
 if [[ "$subject" =~ ${recoversub} ]]; then
-	emoji=':smile:'
-elif [ "$subject" == 'OK' ]; then
-	emoji=':smile:'
-elif [ "$subject" == 'PROBLEM' ]; then
-	emoji=':frowning:'
+        emoji=':smile:'
+        color='3aa3e3'
+elif [[ "$subject" =~ 'OK' ]]; then
+        emoji=':smile:'
+        color='good'
+elif [[ "$subject" =~ 'PROBLEM' ]]; then
+        emoji=':frowning:'
+        color='danger'
 else
-	emoji=':ghost:'
+        emoji=':ghost:'
+        color='cee3e5'
 fi
 
 # The message that we want to send to Slack is the "subject" value ($2 / $subject - that we got earlier)
 #  followed by the message that Zabbix actually sent us ($3)
-message="${subject}: $3"
+subject="${subject}: ${emoji}"
 
 # Read alert message line by line
 check_result=`echo -e "$3" | sed -n 1p`
