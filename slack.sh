@@ -34,9 +34,9 @@ fi
 subject="${subject}: ${emoji}"
 
 # Read alert message line by line
-check_result=`echo -e "$3" | sed -n 1p`
-hostname=`echo -e "$3" | sed -n 2p`
-ip=`echo -e "$3" | sed -n 3p`
+hostname=`echo -e "$3" | sed -n 1p`
+ip=`echo -e "$3" | sed -n 2p`
+check_result=`echo -e "$3" | sed -n '3,$p'`
 
 # Build our JSON payload and send it as a POST request to the Slack incoming web-hook URL
 payload="payload={\"channel\": \"${to//\"/\\\"}\", \"username\": \"${username//\"/\\\"}\", \"attachments\": [ { \"title\": \"${subject//\"/\\\"}\", \"fields\": [ { \"title\": \"Check Result\", \"value\": \"${check_result//\"/\\\"}\", \"short\": false }, { 
