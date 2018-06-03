@@ -87,10 +87,10 @@ Finally, an action can then be created on the "Actions" sub-tab of the "Configur
 
 Keeping the messages short is probably a good idea; Script will read first 3 line and assign each line to a variable, use the following for the contents of each message:
 
-	{ITEM.NAME1} : {ITEM.VALUE1}
 	{HOSTNAME}
 	{IPADDRESS}
-
+	{ITEM.NAME} : {ITEM.VALUE}
+	
 Additionally, you can have multiple different Zabbix users each with "Slack" media types that notify unique Slack users or channels upon different triggered Zabbix actions.
 
 If you are interesting in longer notification messages (with line breaks for example), you may want to reference [this pull request](https://github.com/ericoc/zabbix-slack-alertscript/pull/16) or [any number of forks of this repository](https://github.com/ericoc/zabbix-slack-alertscript/network).
